@@ -9,13 +9,16 @@ class DetailInfoBloc extends Bloc<DetailInfoEvent, DetailInfoState> {
   final GetDetailInfoFood _getDetailInfoFood;
 
   DetailInfoBloc(this._getDetailInfoFood) : super(DetailInfoState()) {
-    on<GetDetailInfo>((GetDetailInfo event, Emitter<DetailInfoState> emit) async {
+    on<GetDetailInfo>(
+        (GetDetailInfo event, Emitter<DetailInfoState> emit) async {
       await _getDetailInfo(event.idMeal, emit);
     });
   }
 
+  /// Private func request detail info food
   Future _getDetailInfo(String id, Emitter<DetailInfoState> emit) async {
     emit(state.copyWith(isLoading: true));
+    // do process request detail info food from usecase
     final result = await _getDetailInfoFood(id);
     result.when(ok: (data) {
       emit(state.copyWith(isLoading: false, detailFood: data));
@@ -23,5 +26,4 @@ class DetailInfoBloc extends Bloc<DetailInfoEvent, DetailInfoState> {
       emit(DetailInfoState());
     });
   }
-
 }

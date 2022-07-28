@@ -10,6 +10,7 @@ class DetailRepoImpl implements DetailRepo {
 
   DetailRepoImpl(this.dio);
 
+  /// Func request detail food based on [id] from api
   @override
   Future<DetailFoodModel> getDetailInfo(String id) async {
     final response = await dio.get('/lookup.php?i=$id');

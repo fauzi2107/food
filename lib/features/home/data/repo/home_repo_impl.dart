@@ -10,6 +10,7 @@ class HomeRepoImpl implements HomeRepo {
 
   HomeRepoImpl(this.dio);
 
+  /// Func request list food based on category from api
   @override
   Future<List<FoodModel>> getFoodByCategory(String category) async {
     final response = await dio.get('/filter.php?c=$category');
@@ -20,7 +21,7 @@ class HomeRepoImpl implements HomeRepo {
     return result as List<FoodModel>;
   }
 
-  /// Func get list category
+  /// Func request list category from api
   @override
   Future<List<CategoryItem>> getListCategory() async {
     final response = await dio.get('/list.php?c=list');

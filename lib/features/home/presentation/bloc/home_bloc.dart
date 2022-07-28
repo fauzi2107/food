@@ -25,8 +25,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     });
   }
 
+  /// Func fetch list load category
   Future loadCategory(Emitter<HomeState> emit) async {
     emit(state.copyWith(isLoading: true));
+    // do process request list category from usecase
     final result = await _getListCategory(NoParams());
     result.when(ok: (data) {
       emit(state.copyWith(isLoading: false, listCategory: data));
@@ -35,8 +37,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     });
   }
 
+  /// Func fetch list food based on category
   Future getFood(HomeEventGetFood event, Emitter<HomeState> emit) async {
     emit(state.copyWith(isLoading: true));
+    // do process request list for from usecase
     final result = await _getFoodByCategory(event.category);
     result.when(ok: (data) {
       emit(state.copyWith(isLoading: false, listFood: data));
